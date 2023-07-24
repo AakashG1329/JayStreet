@@ -1,0 +1,161 @@
+<div class="container-fluid ">
+    <div class="row" style="margin-bottom: 8%;">
+        <div class="col-md-12 text-light " style="position: fixed; z-index: 1;background-color:rgb(248,21,127);padding: 0 10% 0 10%;">
+            <div class="row py-2" style="width: 100%;">
+                <div class="col-md-10">
+                    <nav>
+                        <div class="nav">
+                            <a class="nav-link text-light " [routerLink]="['/products']" role="tab"><span
+                                    [routerLinkActive]="'active'">Products</span></a>
+                                    <a class="nav-link text-light " [routerLink]="['/scheduler']" role="tab"><span
+                                      [routerLinkActive]="'active'">Scheduler</span></a>
+                                    <!-- <a class="nav-link text-light " [routerLink]="['/Report']" role="tab"><span
+                                        [routerLinkActive]="'active'">Report</span></a> -->
+                 
+                        </div>
+                    </nav>
+
+                </div>
+                <div class="col-md-2 text-end">
+                    <nav>
+                        <a class="nav-link text mt-2 text-light" [routerLink]="['/login']" [routerLinkActive]="'active'"
+                            type="button" role="tab">
+                            Logout <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container " >
+    <button class="btn styleBtn" data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop" style="float: right;">Add</button>
+   
+
+    <div class="row">
+        
+
+      
+<table class="table mt-5">
+    <thead >
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                ASIN
+            </th>
+            <th style="width: 30%;">
+                Title
+            </th>
+            <th>
+                Brand
+            </th>
+            <th >
+                <span class="ps-4">Action</span>
+            </th>     
+        </tr>
+    </thead>
+
+   
+    <tbody>
+        
+            <td colspan="6" *ngIf="isLoading; else productsTable">
+                
+        <div class="d-flex " style="margin-left: 50%;margin-top: 12%;">
+  
+          <div style="color: rgb(248,21,127)" class="la-line-scale la-2x">
+  
+            <div></div>
+  
+            <div></div>
+  
+            <div></div>
+  
+            <div></div>
+  
+            <div></div>
+  
+       
+  
+        </div>
+  
+      </div>
+            </td>
+       
+        <ng-template #productsTable>
+            <ng-container *ngIf="productResponse ;else NoResult ">
+        <tr  *ngFor="let item of products">
+            <td><img src= "{{item.imageUrl}}" width="50" height="50"></td>
+            <td >{{item.asin}}</td>
+            <td >{{item.title}}</td>
+            <td >{{item.brand}}</td>
+            <td><button class="btn styleBtn" data-bs-toggle="modal"
+                data-bs-target="#edit" (click)="productAnalyze(item)">Analyze</button><button class="btn btn-outline-danger ms-2" (click)="deleteProducts(item.id)">Delete</button></td>
+        </tr>  
+      </ng-container>
+        <ng-template #NoResult>
+            <td colspan="5">
+                <h3  style="margin-left: 60%;margin-top: 14%;">No Data Found</h3>
+               </td>
+        </ng-template>
+    </ng-template>
+    </tbody>
+
+</table>
+</div>
+</div>
+
+<!-- Model -->
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"> Add Product
+        </h5>
+        <button type="button" id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- <button type="button" id="cancel" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      <div class="modal-body justify-content-md-center">
+        <div class="row  justify-content-md-center mt-3">
+          <div class="col-md-11 example-container mat-elevation-z8">
+           <form [formGroup]="productForm">
+            <div class="mb-1 row">
+              <div class="col-md-2">
+                <label for="exampleInputPassword1" class="form-label">ASIN</label>
+              </div>
+              <div class="col-md-10">
+                <input type="text" class="form-control " formControlName="asin" minlength="10"  required [ngClass]="{'border-danger':((productForm.controls['asin'].dirty || productForm.controls['asin'].touched ) || submitted ) && (productForm.hasError('required','asin') || productForm.hasError('minlength','asin'))}">
+                <div class="text-danger" *ngIf="((productForm.controls['asin'].dirty || productForm.controls['asin'].touched ) || submitted) && productForm.hasError('required','asin')">ASIN is Required </div>
+                <div class="text-danger" *ngIf="productForm.hasError('minlength','asin')">
+                 Minimum 10 Letter Required
+                </div>
+              </div>
+                
+               
+            </div>
+              <button type="button" class="btn styleBtn " (click)="CreateProducts()" style="float: right;">Save</button>
+              <!-- <button type="reset" class="btn btn-danger ms-2">Reset</button> -->
+          </form>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Model End -->

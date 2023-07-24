@@ -1,0 +1,31 @@
+<div class="main">
+
+<!-- <img src="../../../assets/logo.jpg" width="200" height="200"> -->
+
+    <div class="container">
+      <h1>Login</h1>
+      <form [formGroup]="loginForm">
+        <div class="inputs">
+         
+          <input type="text"  formControlName="email">
+          <label>Username</label>
+           <!-- <label>
+            <span style="transition-delay: 0ms">E</span>
+              <span style="transition-delay: 50ms">m</span>
+              <span style="transition-delay: 100ms">a</span>
+              <span style="transition-delay: 150ms">i</span>
+              <span style="transition-delay: 200ms">l</span>
+        </label> -->
+        </div>
+
+        <div class="inputs">
+          <input type="password"  formControlName="password">
+          <label>Password</label>
+        </div>
+
+        <button class="btn" (click)="submit()">Login</button>
+
+        <p class="text">Don't have an account? <a href="#">Register</a> </p>
+      </form>
+    </div>
+  </div>

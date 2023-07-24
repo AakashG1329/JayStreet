@@ -1,0 +1,108 @@
+<div class="container-fluid ">
+    <div class="row" style="margin-bottom: 8%;">
+        <div class="col-md-12 text-light " style="position: fixed; z-index: 1;background-color: rgb(248,21,127);padding: 0 10% 0 10%; ">
+            <div class="row py-2" style="width: 100%;">
+                <div class="col-md-10">
+                    <nav>
+                        <div class="nav">
+                            <a class="nav-link text-light " [routerLink]="['/products']" role="tab"><span
+                                    [routerLinkActive]="'active'">Products</span></a>
+                                    <a class="nav-link text-light " [routerLink]="['/scheduler']" role="tab"><span
+                                      [routerLinkActive]="'active'">Scheduler</span></a>
+                                    <!-- <a class="nav-link text-light " [routerLink]="['/Report']" role="tab"><span
+                                        [routerLinkActive]="'active'">Report</span></a> -->
+                 
+                        </div>
+                    </nav>
+
+                </div>
+                <div class="col-md-2 text-end">
+                    <nav>
+                        <a class="nav-link text mt-2 text-light" [routerLink]="['/login']" [routerLinkActive]="'active'"
+                            type="button" role="tab">
+                            Logout <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid fontSize px-4" >
+    <button class="btn styleBtn px-3" 
+style="float: right;" (click)="ButtonClick()">PROCESS QUEUE</button>
+
+    
+
+      <button class="btn styleBtn" (click)="getScheduler()">Refresh</button>
+<table class="table mt-5 " >
+    <thead >    
+        <tr>
+            <th>
+                BATCH ID
+            </th>
+            <th>
+                ASIN
+            </th>
+            <th>
+                CREATED ON
+            </th>
+            <th>
+                STATUS
+            </th>
+            <th >
+                STARTED ON
+            </th>
+            <th>
+               COMPLETED ON
+            </th>
+            <th >
+                <span class="ps-4">Action</span>
+            </th>     
+        </tr>
+    </thead>
+    <tbody>
+        <td colspan="6" *ngIf="isLoading; else schedulerTable">
+                
+            <div class="d-flex " style="margin-left: 50%;margin-top: 12%;">
+      
+              <div style="color: rgb(248,21,127)" class="la-line-scale la-2x">
+      
+                <div></div>
+      
+                <div></div>
+      
+                <div></div>
+      
+                <div></div>
+      
+                <div></div>
+      
+           
+      
+            </div>
+      
+          </div>
+                </td>
+                <ng-template #schedulerTable>
+        <tr  *ngFor="let item of schedulerData"  >
+            <td>{{item.id}}</td>
+            <td>{{item.asin}}</td>
+            <td >{{item.createdOn | date: 'dd/MM/yyyy hh:mm a'}}</td>
+            <td >{{item.status }}</td>
+            <td >{{item.startedOn | date: 'dd/MM/yyyy hh:mm a'}}</td>
+            <td >{{item.completedOn | date: 'dd/MM/yyyy hh:mm a'}}</td>
+            <td><button class="btn styleBtn ms-2" [hidden]="item.status !=='Completed'"  > <a class="nav-link" [queryParams]="{ id: item.id }"  routerLink='/Report' target="_blank" (click)="viewReport(item.id)"> View Report</a></button><button class="btn btn-outline-danger ms-1" (click)="deleteScheduler(item.id)">Delete</button></td>
+        </tr>  
+    </ng-template>
+    </tbody>
+</table>
+
+</div>

@@ -1,0 +1,1 @@
+function inputDesign(){const n=document.querySelectorAll(".inputs label");console.log(n),n.forEach(e=>{e.innerHTML=e.innerText.split("").map((s,t)=>`<span style="transition-delay:${50*t}ms">${s}</span>`).join("")})}

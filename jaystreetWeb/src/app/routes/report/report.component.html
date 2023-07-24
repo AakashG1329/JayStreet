@@ -1,0 +1,154 @@
+<!-- <div class="container-fluid ">
+    <div class="row" style="margin-bottom: 5%;">
+        <div class="col-md-12 text-light " style="position: fixed; z-index: 1;background-color: darkblue;padding: 0 10% 0 10%;  border-top-style:solid;border-width: 0.5px;
+     border-top-color: rgb(89, 82, 223);">
+            <div class="row py-2" style="width: 100%;">
+                <div class="col-md-10">
+                    <nav>
+                        <div class="nav">
+                            <a class="nav-link text-light " [routerLink]="['/products']" role="tab"><span
+                                    [routerLinkActive]="'active'">Products</span></a>
+                            <a class="nav-link text-light " [routerLink]="['/scheduler']" role="tab"><span
+                                    [routerLinkActive]="'active'">Scheduler</span></a>
+                            <a class="nav-link text-light " [routerLink]="['/Report']" role="tab"><span
+                                    [routerLinkActive]="'active'">Report</span></a>
+
+                        </div>
+                    </nav>
+
+                </div>
+                <div class="col-md-2 text-end">
+                    <nav>
+                        <a class="nav-link text mt-2 text-light" [routerLink]="['/login']" [routerLinkActive]="'active'"
+                            type="button" role="tab">
+                            Logout <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> -->
+
+<div class="container-fluid p-4 pt-5 fontSize" >
+<h3 style="float: left;">Report Details</h3>
+<button class="btn styleBtn me-5" style="float: right;" (click)="goBack()" >Back</button>
+
+
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>
+                            BATCH ID
+                        </th>
+                        <th>
+                            ASIN
+                        </th>
+                        <th>
+                            KEYWORD
+                        </th>
+                        <th>
+                            MATCH TYPE
+                        </th>
+                        <th>
+                            RANK
+                        </th>
+                        <th>
+                            COMPETITOR
+                        </th>
+                        <th>
+                            BID RANGE
+                        </th>
+            
+                        <th>
+                            CREATED ON
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td colspan="6" *ngIf="isLoading; else reportTable">
+                
+                        <div class="d-flex " style="margin-left: 60%;margin-top: 12%;">
+                  
+                          <div style="color: rgb(248,21,127)" class="la-line-scale la-2x">
+                  
+                            <div></div>
+                  
+                            <div></div>
+                  
+                            <div></div>
+                  
+                            <div></div>
+                  
+                            <div></div>
+                  
+                       
+                  
+                        </div>
+                  
+                      </div>
+                            </td>
+                            <ng-template #reportTable>
+                                <ng-container *ngIf="reportResponse ;else NoResult ">
+                    <ng-container *ngFor="let item of products.keywords">
+                    <tr (click)="item.isExpand = !item.isExpand">
+                        <td>{{item?.batchId}}</td>
+                       <td>{{item?.asin}}</td>
+                       <td>{{item?.keyword}}</td>
+                        <td>{{item?.matchType}}</td>
+                           <td>{{item?.rank}}</td>
+                           <td style="width: 10%;">{{item?.competitorCount}}</td>
+                   
+                            <td>suggested:{{item.bidRange.suggested}},rangeStart:{{item.bidRange.rangeStart}},<br>
+                                rangeMedian:{{item.bidRange.rangeMedian}},rangeEnd:{{item.bidRange.rangeEnd}}
+      
+                            </td>
+                          
+                        <td>{{item?.createdOn | date: 'dd/MM/yyyy hh:mm a'}}'</td> 
+                    </tr>
+                   
+                    <tr *ngIf="item.isExpand">
+                        <td colspan="6">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ASIN</th>
+                                    <th>SoldBy</th>
+                                    <th>Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                    <tr *ngFor="let ite of item.competitors">
+                        
+                                        <td>{{ite.asin}}</td>
+                                        <td>{{ite.soldBy}}</td>
+                                        <td>{{ite.position}}</td>
+                                    </tr>
+                            
+                            </tbody>
+                            </table>
+                        </td>
+                    </tr>  
+                </ng-container>
+            </ng-container>
+            <ng-template #NoResult>
+               <td colspan="6">
+                <h3  style="margin-left: 40%;margin-top: 14%;">No Competitors Found</h3>
+               </td>
+                  
+              
+                
+            </ng-template>
+            </ng-template>
+      
+                </tbody>
+            </table>
+        </div>

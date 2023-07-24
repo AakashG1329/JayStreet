@@ -1,0 +1,199 @@
+<div class="container-fluid ">
+
+    <!-- <div class="row" style="background-color: darkblue;padding: 1% 10% 2% 10%;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                    <img src="//blueforestmarket.com/cdn/shop/files/BF_White_100x.png?v=1629491200"
+                        srcset="//blueforestmarket.com/cdn/shop/files/BF_White_100x.png?v=1629491200 1x, //blueforestmarket.com/cdn/shop/files/BF_White_100x@2x.png?v=1629491200 2x"
+                        alt="Blue Forest Market" itemprop="logo">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row" style="margin-bottom: 3%;">
+        <div class="col-md-12 text-light " style="position: sticky; z-index: 1;background-color: darkblue;padding: 0 10% 0 10%;  border-top-style:solid;border-width: 0.5px;
+     border-top-color: rgb(89, 82, 223);">
+            <div class="row py-2" style="width: 100%;">
+                <div class="col-md-10">
+                    <nav>
+                        <div class="nav">
+                            <a class="nav-link text-light " [routerLink]="['/products']" role="tab"><span
+                                    [routerLinkActive]="'active'">Products</span></a>
+                                 
+                                        <a class="nav-link text-light " [routerLink]="['/scheduler']" role="tab"><span
+                                            [routerLinkActive]="'active'">Scheduler</span></a>
+                                            <a class="nav-link text-light " [routerLink]="['/Report']" role="tab"><span
+                                                [routerLinkActive]="'active'">Report</span></a>
+                            <!-- <a class="nav-link text-dark " [routerLink]="['/campaigns']" role="tab"><span  [routerLinkActive]="'active'">Campaigns</span></a>
+               <a class="nav-link text-dark" [routerLink]="['/keyword']"  type="button"
+                 role="tab"><span  [routerLinkActive]="'active'">Keywords</span></a>
+               <a class="nav-link text-dark" [routerLink]="['/targets']" type="button"
+                 role="tab"><span  [routerLinkActive]="'active'">Targets</span></a> -->
+                        </div>
+                    </nav>
+
+                </div>
+                <div class="col-md-2 text-end">
+                    <nav>
+                        <a class="nav-link text mt-2 text-light" [routerLink]="['/login']" [routerLinkActive]="'active'"
+                            type="button" role="tab">
+                            Logout <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- <form class="form">
+        <div class="row mt-4 mb-3 mt-5">
+            <div class="col-md-1"> <label class="form-label mt-1 tabresponceive">ASIN :</label></div>
+            <div class="col-md-4 " style="margin-left: -3%;">
+                <input class="form-control col-md-12" type="text" name="asins"  style="margin-left: -2%;"
+                    placeholder="Enter ASIN...">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-primary" style="margin-left: -10%;" type="submit" (click)="asinsSubmit()">
+                    Submit
+
+                </button>
+            </div>
+
+        </div>
+    </form> -->
+
+
+
+    <!-- <div class="div " *ngIf="isLoading1">
+      <div class="d-flex " style="margin-left: 48%;margin-top: 20%;">
+        <div style="color: #64d6e2" class="la-line-scale la-2x">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div> -->
+
+
+    <table class="table" style="margin-top: 5%;">
+        <thead >
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    ASIN
+                </th>
+                <th>
+                    Brand
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    MAP
+                </th>
+                <th>
+                    Date of Check
+                </th>
+                <th>
+                    MAP Violated
+                </th>
+                <th>
+                    Listing Status
+                </th>       
+            </tr>
+        </thead>
+        <tbody>
+            <tr  *ngFor="let item of products">
+                <td><img src= "{{item.imageUrl}}" width="50" height="50"></td>
+                <td (click)="expend()">{{item.brand}}</td>
+                <td (click)="expend()">{{item.brand}}</td>
+                <td (click)="expend()">{{item.price}}</td>
+                <td (click)="expend()">{{item.price}}</td>
+                <td (click)="expend()">{{item.price}}</td>
+                <td (click)="expend()">{{item.price}}</td>
+                <td (click)="expend()">{{item.status}}</td>
+            </tr>
+            <ng-container *ngIf="showchild">
+                   
+                <tr style="width: 100%;">
+                    <th>SellerId</th>
+                    <th>Price</th>
+                    <th>IsBuyBoxWinner</th>
+                    <th>IsFulfilledByAmazon</th>
+                
+                </tr>
+ <ng-container *ngFor="let item of products" >
+               <tr *ngFor="let items of item.competitor">
+                    <td>{{items.sellerId}}</td>
+                    <td>{{items.price}}</td>
+                    <td>{{items.buyBoxWinner}}</td>
+                    <td>{{items.fullFilledByAmazon}}</td>    
+                </tr>
+            </ng-container>
+        </ng-container>
+
+            
+        </tbody>
+    </table>
+
+
+
+
+
+    <!-- <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="example-element-diagram">
+                        <div class="example-element-position"> {{element.position}} </div>
+                        <div class="example-element-symbol"> {{element.symbol}} </div>
+                        <div class="example-element-name"> {{element.name}} </div>
+                        <div class="example-element-weight"> {{element.weight}} </div>
+                    </div>
+                    <div class="example-element-description">
+                        {{element.description}}
+                        <span class="example-element-description-attribution"> -- Wikipedia </span>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table> -->
+
+
+    <!-- Copyright 2019 Google LLC. All Rights Reserved.
+ Use of this source code is governed by an MIT-style license that
+ can be found in the LICENSE file at http://angular.io/license -->
+
+    <!-- Copyright 2019 Google Inc. All Rights Reserved.
+        Use of this source code is governed by an MIT-style license that
+        can be found in the LICENSE file at http://angular.io/license -->
+</div>
